@@ -380,7 +380,7 @@ summary {
 
 <div id="functions" class="section level2">
 <h2>Functions:</h2>
-<p>library(lubridate) (<code>lubridate</code> is a package to make it a bit easier to work with dates &amp; times) separate() unite()</p>
+<p>library(lubridate) (<code>lubridate</code> is a package to make it a bit easier to work with dates &amp; times) separate() unite() group_by count() mutate() filter() case_when (within mutate()) if_else</p>
 </div>
 <div id="before-you-start-save-a-renamed-copy-of-this-.rmd" class="section level2">
 <h2>BEFORE YOU START: Save a renamed copy of this .Rmd</h2>
@@ -591,7 +591,14 @@ points_by_month</code></pre>
 <li>Add a new column that contains the month, parsed from the date created above with <code>month()</code></li>
 <li>Find the <em>number</em> of Gasol’s hook shots recorded (not necessarily scored) by <strong>month</strong> (hint: <code>count(month)</code>) for the 2008 - 2009 season</li>
 </ul>
-<pre class="r"><code># Your code here: </code></pre>
+<pre class="r"><code># Your code here: 
+
+gasol_hookshots &lt;- lakers %&gt;% 
+  filter(player == &quot;Pau Gasol&quot;&amp; type == &quot;hook&quot;) %&gt;% 
+  mutate(date = ymd(date)) %&gt;% 
+  mutate(month = month(date)) %&gt;% 
+  group_by(month) %&gt;% 
+  count(month)</code></pre>
 </div>
 </div>
 <div id="dplyrcase_when" class="section level3">
@@ -624,7 +631,13 @@ storm_season &lt;- storms %&gt;% # Start from storms data
 <p>4A. On your own</p>
 <p>Create a new version of storms called <code>storms_danger</code> in which you add a new column <code>danger</code> where if the status matches “hurricane”, then the danger column contains “high”; if the status is anything other than “hurricane”, then the danger column contains “moderate”. <strong>Hint:</strong> remember that when looking for a match, we use <code>==</code>.</p>
 <p>Note: If you add another condition within <code>case_when()</code> that is <code>TRUE ~ &quot;some thing&quot;</code>, then any entry that hasn’t been specified by previous conditions will get that “catch all” statement.</p>
-<pre class="r"><code># Your code here: </code></pre>
+<pre class="r"><code># Your code here: 
+
+storms_danger &lt;- storms %&gt;% 
+  mutate(danger = case_when(
+    status == &quot;hurricane&quot; ~ &quot;high&quot;,
+    status != &quot;hurricane&quot; ~ &quot;moderate&quot;
+  ))</code></pre>
 </div>
 </div>
 <div id="practice-version-control-wgit" class="section level2">

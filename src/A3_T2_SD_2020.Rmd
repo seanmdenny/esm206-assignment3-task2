@@ -16,6 +16,12 @@ library(lubridate)
 library(lubridate) (`lubridate` is a package to make it a bit easier to work with dates & times)
 separate()
 unite()
+group_by
+count()
+mutate()
+filter()
+case_when (within mutate())
+if_else
 
 ## BEFORE YOU START: Save a renamed copy of this .Rmd
 
@@ -256,6 +262,12 @@ Starting from the `lakers` dataset, create a new dataset called `gasol_hookshots
 ```{r}
 # Your code here: 
 
+gasol_hookshots <- lakers %>% 
+  filter(player == "Pau Gasol"& type == "hook") %>% 
+  mutate(date = ymd(date)) %>% 
+  mutate(month = month(date)) %>% 
+  group_by(month) %>% 
+  count(month)
 
 ```
 
@@ -306,6 +318,11 @@ Note: If you add another condition within `case_when()` that is `TRUE ~ "some th
 ```{r}
 # Your code here: 
 
+storms_danger <- storms %>% 
+  mutate(danger = case_when(
+    status == "hurricane" ~ "high",
+    status != "hurricane" ~ "moderate"
+  ))
 
 ```
 
