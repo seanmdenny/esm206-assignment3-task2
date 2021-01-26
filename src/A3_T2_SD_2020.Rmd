@@ -21,7 +21,6 @@ count()
 mutate()
 filter()
 case_when (within mutate())
-if_else
 
 ## BEFORE YOU START: Save a renamed copy of this .Rmd
 
