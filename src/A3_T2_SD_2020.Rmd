@@ -140,6 +140,10 @@ mpg_make_model <- mpg %>% # Start with mpg
 # Feel free to try different separators in the `sep = ""` argument above.
 # Check the output to see what it does.
 
+
+mpg_make_model_2 <- mpg %>% 
+  unite(col = make_model,
+        c(manufacturer, model))
 ```
 
 #### 2A. On your own
